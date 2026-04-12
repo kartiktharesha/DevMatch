@@ -1,0 +1,451 @@
+
+/* GLOBAL STYLES */
+
+body {
+    background: linear-gradient(to right, #eef2f3, #ffffff);
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
+}
+
+
+
+/* Only affect links inside cards */
+.card a {
+    text-decoration: none;
+    color: inherit;
+    display: block; /* makes full card clickable */
+}
+
+/* Optional: smooth hover effect */
+.card a:hover {
+    color: inherit;
+}
+
+/* NAVBAR */
+
+.navbar {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+}
+
+
+/* HERO SECTION (optional future use) */
+
+.hero {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: white;
+    padding: 60px 20px;
+    border-radius: 15px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.hero p {
+    font-size: 1.2rem;
+}
+
+
+/* PROJECT CARDS */
+
+.card {
+    border: none;
+    border-radius: 15px;
+}
+
+.project-card {
+    transition: all 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+/* Card title */
+.card h5 {
+    font-weight: 600;
+}
+
+/* BADGES (Skills) */
+
+.badge {
+    margin: 3px;
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    border-radius: 20px;
+}
+
+
+/* BUTTONS */
+
+.btn-primary {
+    border-radius: 20px;
+}
+
+.btn-success {
+    border-radius: 20px;
+}
+
+.btn-warning {
+    border-radius: 20px;
+}
+
+.btn-danger {
+    border-radius: 20px;
+}
+
+
+/* TEXT STYLES */
+
+.text-muted {
+    font-size: 0.9rem;
+}
+
+.text-success {
+    font-weight: bold;
+}
+
+/* SEARCH BAR */
+
+form input,
+form select {
+    border-radius: 10px !important;
+}
+
+form button {
+    border-radius: 10px;
+}
+
+
+/* FOOTER */
+
+
+footer {
+    background: #111;
+    color: #aaa;
+    padding: 20px;
+    text-align: center;
+   
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .card {
+        padding: 15px;
+    }
+}
+
+/* Logo container */
+.dev-logo {
+    display: grid;
+    grid-template-columns: repeat(2, 10px);
+    grid-template-rows: repeat(2, 10px);
+    gap: 4px;
+}
+
+/* All squares visible */
+.dev-logo span {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+}
+
+/* Gradient-style colors */
+.dev-logo span:nth-child(1) {
+    background: #4facfe;
+}
+
+.dev-logo span:nth-child(2) {
+    background: #00f2fe;
+}
+
+.dev-logo span:nth-child(3) {
+    background: #3a7bd5;
+}
+
+.dev-logo span:nth-child(4) {
+    background: #00c6ff; /* ✅ FIXED */
+}
+
+
+
+.code-logo {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #0d6efd;
+    letter-spacing: 2px;
+    transform: rotate(-5deg);
+}
+
+/* Remove arrows (Chrome, Edge, Safari) */
+.no-spinner::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Remove arrows (Firefox) */
+.no-spinner {
+    -moz-appearance: textfield;
+}
+
+.card {
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+
+/* WRAPPER */
+.home-wrapper {
+    background: linear-gradient(135deg, #111827, #1f2937);
+    min-height: 100vh;
+    color: white;
+}
+
+
+.hero-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.hero-box {
+    width: 90%;
+    max-width: 1100px;
+    height: 250px;
+
+    background: linear-gradient(135deg, #1e3a8a, #1e293b);
+    border-radius: 15px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* TEXT */
+.main-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.sub-text {
+    color: #cbd5f5;
+}
+
+/* CARDS */
+.card-box {
+    background: #1f2937;
+    padding: 25px;
+    border-radius: 12px;
+    transition: 0.3s;
+    border: 1px solid #374151;
+}
+
+.card-box:hover {
+    transform: translateY(-5px);
+    border-color: #facc15;
+}
+
+
+/* page background */
+.auth-page {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #e5e7eb;
+}
+
+/* Card*/
+.auth-card {
+    background: #f3f4f6;
+    padding: 30px;
+    border-radius: 15px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* title*/
+.auth-card h2 {
+    margin-bottom: 20px;
+    color: #111827;
+}
+
+/* input + output  */
+.auth-card input,
+.auth-card select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: none;
+    background: #cbd5e1;
+    font-size: 14px;
+}
+
+/*  (clean look) */
+.auth-card select {
+    appearance: none;
+}
+
+/* Button */
+.auth-card button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #1f2937;
+    color: white;
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* button hover */
+.auth-card button:hover {
+    background: #111827;
+}
+
+/* text */
+.auth-card p {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: #111827;
+}
+
+/* Link  */
+.auth-card a {
+    text-decoration: none;
+    color: #1f2937;
+    font-weight: 500;
+}
+
+.error-box {
+    background: #fecaca;
+    color: #7f1d1d;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.empty-box {
+    background: #f3f4f6;
+    padding: 30px;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+
+.empty-box h5 {
+    margin-bottom: 10px;
+}
+
+.empty-box p {
+    color: #6b7280;
+}
+
+
+/* Student card  */
+.project-card {
+    background: #f9fafb;
+    border-radius: 15px;
+    border: 1px solid #e5e7eb;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+}
+
+.card-details {
+    display: none;
+}
+
+.project-card.active .card-details {
+    display: block;
+}
+
+.linkedin-btn {
+    color: black;
+    font-size: 18px;
+}
+
+.linkedin-icon {
+    font-size: 20px;
+    color: black;
+    text-decoration: none;
+}
+
+.linkedin-icon:hover {
+    color: #333;
+}
+
+/* delete button */
+.sidebar-link {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;   /* ❌ remove underline */
+  color: inherit;          /* same color as logout */
+  border-radius: 8px;
+}
+
+.sidebar-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 🔴 Delete account special style */
+.delete-link {
+  color: #ff4d4d;
+}
+
+.delete-link:hover {
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+
+ .empty-box {
+    background: #f8f9fa;
+    border-radius: 12px;
+    border: 1px solid #eee;
+  }
+
+  .request-card, .app-card {
+    border: none;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: 0.2s ease;
+  }
+
+  .request-card:hover, .app-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+  }
+
+  h4 {
+    letter-spacing: 0.5px;
+  }

@@ -1,0 +1,80 @@
+<div class="container mt-4">
+
+    <h2 class="mb-4">Students</h2>
+
+    <form method="GET" action="/users/students" class="row mb-4">
+
+  
+    <div class="col-md-5">
+        <input 
+            type="text" 
+            name="skill" 
+            class="form-control" 
+            placeholder="Search by skills"
+            value="<%= skill || '' %>"
+        >
+    </div>
+
+    <div class="col-md-4">
+        <select name="branch" class="form-select">
+            <option value="All">All Branches</option>
+            <option value="ICT" <%= branch === 'ICT' ? 'selected' : '' %>>ICT</option>
+            <option value="EE" <%= branch === 'EE' ? 'selected' : '' %>>EE</option>
+            <option value="EC" <%= branch === 'EC' ? 'selected' : '' %>>EC</option>
+            <option value="IT" <%= branch === 'IT' ? 'selected' : '' %>>IT</option>
+        </select>
+    </div>
+
+   
+    <div class="col-md-3">
+        <button class="btn btn-primary w-100">Search</button>
+    </div>
+
+</form>
+
+    <div class="row">
+
+        <% users.forEach(user => { %>
+
+            <div class="col-md-4">
+                <div class="project-card p-3 mb-4">
+
+                   
+                    <h5 class="fw-bold">
+                        <i class="fa fa-user me-2"></i><%= user.name %>
+                    </h5>
+
+                   
+                    <p class="text-muted mb-2"><%= user.branch %></p>
+
+                  
+                    <p>
+                        <strong>Skills:</strong>
+                        <%= user.skills && user.skills.length 
+                            ? user.skills.join(", ") 
+                            : "Not added" %>
+                    </p>
+
+                   
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+
+                      
+                        <% if(user.linkedin) { %>
+                            <a href="<%= user.linkedin %>" target="_blank" class="linkedin-icon">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        <% } %>
+
+                       
+                        <small class="text-muted">@<%= user.username %></small>
+
+                    </div>
+
+                </div>
+            </div>
+
+        <% }) %>
+
+    </div>
+
+</div>

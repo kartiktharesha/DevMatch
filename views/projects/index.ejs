@@ -1,0 +1,79 @@
+
+<form method="GET" action="/projects" class="row mb-4">
+
+ 
+  <div class="col-md-6">
+    <input 
+      type="text" 
+      name="skills" 
+      class="form-control"
+      placeholder="Enter skills (React, Node, MongoDB)"
+      value="<%= skills || '' %>"
+    >
+  </div>
+
+  <div class="col-md-4">
+    <select name="branch" class="form-select">
+      <option value="All">All Branches</option>
+      <option value="IT" <%= branch === "IT" ? "selected" : "" %>>IT</option>
+      <option value="ICT" <%= branch === "ICT" ? "selected" : "" %>>ICT</option>
+      <option value="EC" <%= branch === "EC" ? "selected" : "" %>>EC</option>
+      <option value="EE" <%= branch === "EE" ? "selected" : "" %>>EE</option>
+    </select>
+  </div>
+
+  
+  <div class="col-md-2">
+    <button class="btn btn-primary w-100">Search</button>
+  </div>
+
+</form>
+<% if (message) { %>
+  <div class="alert alert-warning text-center">
+    <%= message %>
+  </div>
+<% } %>
+
+<div class="row">
+
+  <% projects.forEach(p => { %>
+
+    <div class="col-md-4 mb-4">
+
+      <div class="card project-card shadow-sm h-100 p-3 d-flex flex-column">
+
+        <a href="/projects/<%= p._id %>" class="text-decoration-none text-dark">
+
+          <h5 class="fw-bold d-flex align-items-center">
+            <i class="fa-solid fa-code code-icon"></i>
+            <span class="ms-2"><%= p.title %></span>
+          </h5>
+
+          <p class="text-muted small">
+            <%= p.description.substring(0, 100) %>...
+          </p>
+
+          <p class="small">
+            <strong>Skills:</strong>
+            <%= p.skillsRequired.join(', ') %>
+          </p>
+
+          <p class="fw-bold text-success">
+            ₹<%= p.cost %>
+          </p>
+
+        </a>
+
+        <div class="mt-auto">
+          <small class="text-muted d-block mb-2">
+            Created by: <%= p.createdBy?.username || "Unknown" %>
+          </small>
+        </div>
+
+      </div>
+
+    </div>
+
+  <% }) %>
+
+</div>

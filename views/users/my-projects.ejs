@@ -1,0 +1,60 @@
+<h2 class="mb-4 fw-bold">My Projects</h2>
+
+<div class="row">
+
+  <% if(projects.length === 0) { %>
+
+    <div class="empty-box text-center">
+        <h5>No Projects Yet 🚀</h5>
+        <p>Create your first project and start building your team.</p>
+
+        <a href="/projects/new" class="btn btn-dark mt-2">Create Project</a>
+    </div>
+
+<% } %>
+  <% projects.forEach(p => { %>
+
+    <div class="col-md-4 mb-4">
+
+      <!-- 🔗 Clickable Card -->
+      <a href="/projects/<%= p._id %>" class="text-decoration-none text-dark">
+
+        <div class="card project-card shadow-sm h-100 p-3 d-flex flex-column">
+
+          <!-- Title -->
+          <h5 class="fw-bold d-flex align-items-center">
+            <i class="fa-solid fa-code me-2"></i>
+            <%= p.title %>
+          </h5>
+
+          <!-- Description -->
+          <p class="text-muted small">
+            <%= p.description.substring(0, 100) %>...
+          </p>
+
+          <!-- Skills -->
+          <p class="small">
+            <strong>Skills:</strong>
+            <%= p.skillsRequired.join(', ') %>
+          </p>
+
+          <!-- Cost -->
+          <p class="fw-bold text-success">
+            ₹<%= p.cost %>
+          </p>
+
+          <!-- Footer -->
+          <div class="mt-auto d-flex justify-content-between align-items-center">
+            <small class="text-muted">Created by: you</small>
+          </div>
+
+        </div>
+
+      </a>
+
+    
+    </div>
+
+  <% }) %>
+
+</div>

@@ -1,0 +1,140 @@
+<div class="card shadow-lg p-4">
+
+
+  <h2 class="fw-bold mb-3">
+    <i class="fa-solid fa-code"></i> <%= project.title %>
+  </h2>
+
+ 
+  <p class="text-muted mb-1">
+    <i class="fa-solid fa-user"></i>
+    <strong>Created By:</strong>
+    <%= project.createdBy ? project.createdBy.name : 'Unknown' %>
+  </p>
+
+  <p class="text-muted mb-1">
+    <i class="fa-solid fa-graduation-cap"></i>
+    <strong>Branch:</strong>
+    <%= project.createdBy ? project.createdBy.branch : 'Unknown' %>
+  </p>
+
+ 
+  <p class="text-muted">
+    <i class="fa-solid fa-clock"></i>
+    <strong>Posted On:</strong>
+    <%= project.createdAt.toDateString() %>
+  </p>
+
+  <hr>
+
+  <h5>Description</h5>
+  <p class="text-secondary">
+    <%= project.description %>
+  </p>
+
+ 
+  <h5>Skills Required</h5>
+  <div class="mb-3">
+    <% if (Array.isArray(project.skillsRequired)) { %>
+      <% project.skillsRequired.forEach(skill => { %>
+        <span class="badge bg-primary me-2"><%= skill %></span>
+      <% }) %>
+    <% } %>
+  </div>
+
+ 
+  <h5>Estimated Budget</h5>
+  <p class="fw-bold text-success fs-5">
+    ₹<%= project.cost %>
+  </p>
+
+  <hr>
+
+ 
+  <div class="d-flex gap-3 align-items-center flex-wrap">
+
+    <% if(currentUser && project.createdBy && project.createdBy._id.toString() === currentUser.toString()) { %>
+
+    
+      <a href="/projects/<%= project._id %>/edit" class="btn btn-warning">
+        <i class="fa-solid fa-pen"></i> Edit
+      </a>
+
+      <form action="/projects/<%= project._id %>/delete" method="POST">
+        <button class="btn btn-danger">
+          <i class="fa-solid fa-trash"></i> Delete
+        </button>
+      </form>
+
+    <% } else { %>
+
+
+      <% if (!currentUser) { %>
+
+        <a href="/login" class="btn btn-primary">Login to Apply</a>
+
+      <% } else if (!myApp) { %>
+
+     
+        <form action="/projects/<%= project._id %>/apply" method="POST" onsubmit="disableBtn(this)">
+          <button class="btn btn-success">
+            <i class="fa-solid fa-handshake"></i> Interested
+          </button>
+        </form>
+
+      <% } else if (myApp.status === "pending") { %>
+
+        <button class="btn btn-warning" disabled>
+          Already Applied
+        </button>
+
+      <% } else if (myApp.status === "accepted") { %>
+
+        <button class="btn btn-success" disabled>
+          ✔ Accepted
+        </button>
+
+      <% } else if (myApp.status === "rejected") { %>
+
+        <% let attempts = myApp.attemptCount || 1; %>
+
+        <% if (attempts < 3) { %>
+
+          
+          <form action="/projects/<%= project._id %>/apply" method="POST" onsubmit="disableBtn(this)">
+            <button class="btn btn-outline-success">
+              Apply Again (<%= attempts %>/3)
+            </button>
+          </form>
+
+        <% } else { %>
+
+          <button class="btn btn-outline-danger" disabled>
+            ❌ Rejected (Max attempts reached)
+          </button>
+
+        <% } %>
+
+      <% } %>
+
+    <% } %>
+
+    
+    <a href="/projects" class="btn btn-outline-secondary">
+      ← Back to projects
+    </a>
+
+  </div>
+
+</div>
+
+<script>
+function disableBtn(form) {
+  const btn = form.querySelector("button");
+
+  if (btn.disabled) return false;
+
+  btn.disabled = true;
+  btn.innerText = "Applying...";
+}
+</script>

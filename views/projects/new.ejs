@@ -1,0 +1,58 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+
+  <div class="col-md-8 col-lg-6">
+
+    <div class="card shadow-lg p-4">
+
+      <h2 class="text-center mb-4">
+        DevMatch • Create Project
+      </h2>
+
+      <% if (typeof errors !== 'undefined') { %>
+     <div class="alert alert-danger">
+      <% errors.forEach(err => { %>
+      <p class="mb-0"><%= err %></p>
+       <% }) %>
+      </div>
+     <% } %>
+      <form action="/projects" method="POST">
+
+       
+        <div class="mb-3">
+          <label class="form-label">Project Title</label>
+          <input type="text" name="title" class="form-control" placeholder="Enter project title" required>
+        </div>
+
+      
+        <div class="mb-3">
+          <label class="form-label">Description</label>
+          <textarea name="description" class="form-control" rows="4" placeholder="Describe your project"></textarea>
+        </div>
+
+      
+        <div class="mb-3">
+          <label class="form-label">Skills Required</label>
+          <input type="text" name="skillsRequired" class="form-control" placeholder="HTML, CSS, Node.js">
+        </div>
+
+        
+        <div class="mb-3">
+          <label class="form-label">Estimated Budget</label>
+      <input type="number" name="cost" class="form-control no-spinner"
+       min="0"
+       value="<%= typeof project !== 'undefined' ? project.cost : 0 %>"
+       placeholder="Enter budget">
+
+        
+        <div class="d-flex justify-content-between mt-4">
+          <a href="/projects" class="btn btn-secondary">Cancel</a>
+          <button class="btn btn-primary">Create Project</button>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>

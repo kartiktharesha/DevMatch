@@ -1,0 +1,58 @@
+<h2 class="mb-4 fw-bold">My Profile</h2>
+
+<% if(user.skills.length === 0 || !user.linkedin) { %>
+  <div class="alert alert-warning">
+    Complete your profile to get better project matches 🚀
+  </div>
+<% } %>
+
+<div class="card shadow-sm p-4" style="max-width:600px;">
+
+  <div class="mb-3">
+    <label class="text-muted">Name</label>
+    <h5><%= user.name %></h5>
+  </div>
+
+  <div class="mb-3">
+    <label class="text-muted">Username</label>
+    <h6>@<%= user.username %></h6>
+  </div>
+
+  <div class="mb-3">
+    <label class="text-muted">Branch</label>
+    <h6><%= user.branch %></h6>
+  </div>
+
+  <div class="mb-3">
+    <label class="text-muted">Skills</label>
+    <p>
+      <% if(user.skills.length > 0) { %>
+        <%= user.skills.join(', ') %>
+      <% } else { %>
+        <span class="text-danger">No skills added</span>
+      <% } %>
+    </p>
+  </div>
+
+ 
+
+ <div class="mb-3">
+  <label class="text-muted">LinkedIn</label><br>
+
+  <% if(user.linkedin) { %>
+    <a href="<%= user.linkedin %>" target="_blank" class="text-decoration-none fw-semibold text-primary">
+      <%= user.linkedin %>
+    </a>
+  <% } else { %>
+    <span class="text-danger">Not added</span>
+  <% } %>
+</div>
+
+  <a href="/users/edit-profile" class="btn btn-primary mt-3">
+    Edit Profile
+  </a>
+
+
+
+
+</div>

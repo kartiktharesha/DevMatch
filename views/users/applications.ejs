@@ -1,0 +1,65 @@
+<div class="container mt-3">
+
+    <h4 class="mb-3">Applications</h4>
+
+
+    <h4 class="text-warning mb-2">Pending</h4>
+    <div class="row g-3 mb-4">
+        <% pending.forEach(app => { %>
+            <% if(app.project) { %>
+                <div class="col-md-4">
+                    <div class="card p-2 shadow-sm">
+                        <span><%= app.project.title %></span>
+                    </div>
+                </div>
+            <% } %>
+        <% }) %>
+    </div>
+
+   >
+    <h4 class="text-success mb-2">Accepted</h4>
+    <div class="row g-3 mb-4">
+        <% accepted.forEach(app => { %>
+            <% if(app.project) { %>
+                <div class="col-md-4">
+                    <div class="card p-2 shadow-sm border-success">
+
+                        <!-- Line 1 -->
+                        <div><%= app.project.title %></div>
+
+                        <!-- Line 2 -->
+                        <small class="text-muted">
+                            by <%= app.project.createdBy?.username || "Unknown" %> 
+                            
+                          
+                        </small>
+
+                    </div>
+                </div>
+            <% } %>
+        <% }) %>
+    </div>
+
+   
+    <h4 class="text-danger mb-2">Rejected</h4>
+    <div class="row g-3">
+        <% rejected.forEach(app => { %>
+            <% if(app.project) { %>
+                <div class="col-md-4">
+                    <div class="card p-2 shadow-sm border-danger">
+
+                        <!-- Line 1 -->
+                        <div><%= app.project.title %></div>
+
+                        <!-- Line 2 -->
+                        <small class="text-muted">
+                            by <%= app.project.createdBy?.username || "Unknown" %>
+                        </small>
+
+                    </div>
+                </div>
+            <% } %>
+        <% }) %>
+    </div>
+
+</div>

@@ -1,0 +1,135 @@
+<div class="container mt-4">
+
+    <h4 class="mb-4">
+        My Requests
+    </h4>
+<% if (!applications || applications.length === 0) { %>
+
+    <div class="empty-box text-center">
+
+        
+        <h3 class="fw-bold mb-2">
+            No Requests Yet 🚀
+        </h3>
+
+      
+        <p class="text-muted mb-4">
+            Find your teammates and start building your team.
+        </p>
+
+        <a href="/users/students" class="btn btn-dark px-4 py-2">
+            Find Teammates
+        </a>
+
+    </div>
+
+<% } else { %>
+
+    <div class="row g-3">
+
+    <% applications.forEach(app => { %>
+
+        <div class="col-md-4">
+
+            <div class="card shadow-sm border-0 h-100 p-3">
+
+              
+                <div class="d-flex justify-content-between align-items-center mb-2">
+
+                    <h6 class="fw-bold mb-0">
+                        <%= app.applicant?.name || "No Name" %>
+                    </h6>
+
+                    <% if(app.applicant?.linkedin) { %>
+                        <a href="<%= app.applicant.linkedin %>" target="_blank"
+                           style="color:black; font-size:18px;">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    <% } %>
+
+                </div>
+
+                <small class="text-muted mb-2">
+                    <%= app.applicant?.branch || "N/A" %>
+                </small>
+
+                
+                <small class="text-muted mb-3">
+                    <strong><%= app.project?.title || "Unknown Project" %></strong>
+                </small>
+
+                
+                <div class="mt-auto d-flex gap-2">
+
+                    <a href="/accept/<%= app._id %>" 
+                       class="btn btn-sm btn-success flex-fill">
+                        Accept
+                    </a>
+
+                    <a href="/reject/<%= app._id %>" 
+                       class="btn btn-sm btn-outline-dark flex-fill">
+                        Reject
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    <% }) %>
+
+    </div>
+
+    <% } %>
+
+</div>
+<hr>
+
+
+
+<h4 class="mb-4 mt-5">My Applications</h4>
+
+<% if (!myApplications || myApplications.length === 0) { %>
+
+  <div class="empty-box text-center">
+    <h5>No Applications Yet 📂</h5>
+    <p class="text-muted">Start applying to projects.</p>
+    <a href="/projects" class="btn btn-dark">Browse Projects</a>
+  </div>
+
+<% } else { %>
+
+  <div class="row g-3">
+
+    <% myApplications.slice(0,6).forEach(app => { %>
+
+      <div class="col-md-4">
+        <div class="card shadow-sm p-3">
+
+          <h6 class="fw-bold">
+            <%= app.project?.title || "No Project" %>
+          </h6>
+
+          <small class="text-muted">
+            <%= app.project?.description?.substring(0, 50) || "" %>...
+          </small>
+
+          <div class="mt-2">
+            <span class="badge 
+              <%= app.status === 'accepted' ? 'bg-success' : '' %>
+              <%= app.status === 'pending' ? 'bg-warning text-dark' : '' %>
+              <%= app.status === 'rejected' ? 'bg-danger' : '' %>
+            ">
+              <%= app.status %>
+            </span>
+          </div>
+
+        </div>
+      </div>
+
+    <% }) %>
+
+  </div>
+
+<% } %>
