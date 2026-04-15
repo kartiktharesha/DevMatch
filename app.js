@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const expressLayouts = require("express-ejs-layouts");
 const session = require("express-session");
 
-//  Models
+// Models
 const Application = require("./models/Application");
 const Project = require("./models/ProjectModel");
 
@@ -12,26 +12,29 @@ const Project = require("./models/ProjectModel");
 const projectRoutes = require("./routes/projects");
 const userRoutes = require("./routes/users");
 const authRoutes = require("./routes/auth");
- 
-//database connection
-mongoose.connect(process.env.MONGO_URL)
+
+// ================= DATABASE CONNECTION =================
+
+// 👉 Use Render env OR fallback to localhost
+const DB_URL = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/devmatch";
+
+mongoose.connect(DB_URL)
     .then(() => console.log("MongoDB Connected"))
     .catch(err => console.log(err));
 
-   
-
+// ================= MIDDLEWARE =================
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // Session
 app.use(session({
-    secret: "mysupersecret",
+    secret: process.env.SESSION_SECRET || "mysupersecret",
     resave: false,
     saveUninitialized: false
 }));
 
-
+// Auth middleware
 const isLoggedIn = (req, res, next) => {
     if (!req.session.userId) {
         return res.redirect("/login");
@@ -39,18 +42,20 @@ const isLoggedIn = (req, res, next) => {
     next();
 };
 
+// Global variables
 app.use((req, res, next) => {
     res.locals.currentUser = req.session.userId || null;
     res.locals.showNavbar = true;
     next();
 });
 
+// ================= VIEW ENGINE =================
 
 app.set("view engine", "ejs");
 app.use(expressLayouts);
 app.set("layout", "layouts/boilerplate");
 
-
+// ================= ROUTES =================
 
 // Home
 app.get("/", (req, res) => {
@@ -66,6 +71,7 @@ app.use("/users", userRoutes);
 // Projects
 app.use("/projects", projectRoutes);
 
+// ================= APPLY ROUTE =================
 
 app.post("/apply/:projectId", isLoggedIn, async (req, res) => {
     try {
@@ -75,7 +81,6 @@ app.post("/apply/:projectId", isLoggedIn, async (req, res) => {
         const project = await Project.findById(projectId);
         if (!project) return res.redirect("/projects");
 
-        // ❌ prevent owner
         if (project.createdBy.toString() === userId.toString()) {
             return res.redirect(`/projects/${projectId}`);
         }
@@ -86,8 +91,6 @@ app.post("/apply/:projectId", isLoggedIn, async (req, res) => {
         });
 
         if (appData) {
-
-         
             if (appData.status === "pending" || appData.status === "accepted") {
                 return res.redirect(`/projects/${projectId}`);
             }
@@ -101,8 +104,6 @@ app.post("/apply/:projectId", isLoggedIn, async (req, res) => {
             await appData.save();
 
         } else {
-
-          
             await Application.create({
                 applicant: userId,
                 project: projectId,
@@ -116,7 +117,6 @@ app.post("/apply/:projectId", isLoggedIn, async (req, res) => {
     } catch (err) {
         console.log(err);
 
-        
         if (err.code === 11000) {
             return res.redirect(`/projects/${req.params.projectId}`);
         }
@@ -125,17 +125,16 @@ app.post("/apply/:projectId", isLoggedIn, async (req, res) => {
     }
 });
 
+// ================= ACCEPT / REJECT =================
 
 app.get("/accept/:id", isLoggedIn, async (req, res) => {
     try {
-        const application = await Application.findById(req.params.id)
-            .populate("project");
+        const application = await Application.findById(req.params.id).populate("project");
 
         if (!application || !application.project) {
             return res.redirect("/users/dashboard");
         }
 
-    
         if (application.project.createdBy.toString() !== req.session.userId.toString()) {
             return res.redirect("/users/dashboard");
         }
@@ -153,14 +152,12 @@ app.get("/accept/:id", isLoggedIn, async (req, res) => {
 
 app.get("/reject/:id", isLoggedIn, async (req, res) => {
     try {
-        const application = await Application.findById(req.params.id)
-            .populate("project");
+        const application = await Application.findById(req.params.id).populate("project");
 
         if (!application || !application.project) {
             return res.redirect("/users/dashboard");
         }
 
-       
         if (application.project.createdBy.toString() !== req.session.userId.toString()) {
             return res.redirect("/users/dashboard");
         }
@@ -176,15 +173,17 @@ app.get("/reject/:id", isLoggedIn, async (req, res) => {
     }
 });
 
+// Logout
 app.get("/logout", (req, res) => {
     req.session.destroy(() => {
         res.redirect("/");
     });
 });
 
+// ================= SERVER =================
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log("Server running");
+    console.log("Server running on port " + PORT);
 });
