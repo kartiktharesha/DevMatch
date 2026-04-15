@@ -12,11 +12,13 @@ const Project = require("./models/Project");
 const projectRoutes = require("./routes/projects");
 const userRoutes = require("./routes/users");
 const authRoutes = require("./routes/auth");
-
+ 
 //database connection
-mongoose.connect("mongodb://127.0.0.1:27017/devmatch")
+mongoose.connect(process.env.MONGO_URL)
     .then(() => console.log("MongoDB Connected"))
     .catch(err => console.log(err));
+
+   
 
 
 app.use(express.urlencoded({ extended: true }));
