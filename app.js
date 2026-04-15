@@ -5,7 +5,7 @@ const expressLayouts = require("express-ejs-layouts");
 const session = require("express-session");
 
 //  Models
-const Application = require("./models/AppModel");
+const Application = require("./models/Application");
 const Project = require("./models/ProjectModel");
 
 // Routes
@@ -183,6 +183,8 @@ app.get("/logout", (req, res) => {
 });
 
 
-app.listen(3000, () => {
-    console.log("Server running on port 3000");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log("Server running");
 });
