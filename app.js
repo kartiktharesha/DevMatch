@@ -5,7 +5,7 @@ const expressLayouts = require("express-ejs-layouts");
 const session = require("express-session");
 
 //  Models
-const Application = require("./models/Application");
+const Application = require("./models/AppModel");
 const Project = require("./models/Project");
 
 // Routes
