@@ -4,40 +4,43 @@ const User = require("../models/user");
 const bcrypt = require("bcrypt");
 
 
-router.post("/signup", async (req, res) => {
+router.post("/login", async (req, res) => {
     try {
-        const { name, branch, username, password } = req.body;
+        console.log("BODY:", req.body);   // 👈 ADD
 
-        const existingUser = await User.findOne({ username });
+        const { username, password } = req.body;
 
-        if (existingUser) {
-            return res.render("auth/signup", {
+        const user = await User.findOne({ username });
+
+        console.log("USER:", user);       // 👈 ADD
+
+        if (!user) {
+            return res.render("auth/login", {
                 showNavbar: false,
                 fullWidth: true,
-                error: "Username already exists"
+                error: "User not found"
             });
         }
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const isMatch = await bcrypt.compare(password, user.password);
 
-        const newUser = new User({
-            name,
-            branch,
-            username,
-            password: hashedPassword
-        });
+        console.log("MATCH:", isMatch);   // 👈 ADD
 
-        await newUser.save();
+        if (!isMatch) {
+            return res.render("auth/login", {
+                showNavbar: false,
+                fullWidth: true,
+                error: "Incorrect password"
+            });
+        }
 
-        
-        req.session.userId = newUser._id;
+        req.session.userId = user._id;
 
-      
         res.redirect("/projects");
 
     } catch (err) {
-        console.log(err);
-        res.render("auth/signup", {
+        console.log("LOGIN ERROR:", err);   // 👈 IMPORTANT
+        res.render("auth/login", {
             showNavbar: false,
             fullWidth: true,
             error: "Something went wrong"
