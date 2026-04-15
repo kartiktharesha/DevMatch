@@ -3,7 +3,7 @@ const router = express.Router();
 
 const isLoggedIn = require("../middleware/isLoggedIn");
 
-const Project = require("../models/Project");
+const Project = require("../models/ProjectModel");
 const Application = require("../models/Application");
 const User = require("../models/user");
 const bcrypt = require("bcrypt");

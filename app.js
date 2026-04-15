@@ -6,7 +6,7 @@ const session = require("express-session");
 
 //  Models
 const Application = require("./models/AppModel");
-const Project = require("./models/Project");
+const Project = require("./models/ProjectModel");
 
 // Routes
 const projectRoutes = require("./routes/projects");
